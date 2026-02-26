@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Blog Automation - Vienna Ski Weekends</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e1117;
+  --surface: #161b26;
+  --text: #e8edf3;
+  --text-dim: #7d8a9e;
+  --accent: #38bdf8;
+  --accent-2: #a78bfa;
+  --accent-3: #34d399;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--font-body); }
+
+/* Noise overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.deck { width: 100vw; height: 100vh; position: relative; }
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 6rem);
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+  overflow: hidden;
+}
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.slide.prev {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+/* Staggered entry */
+.slide.active .anim { animation: fadeUp 0.6s ease both; }
+.slide.active .anim:nth-child(1) { animation-delay: 0.1s; }
+.slide.active .anim:nth-child(2) { animation-delay: 0.2s; }
+.slide.active .anim:nth-child(3) { animation-delay: 0.3s; }
+.slide.active .anim:nth-child(4) { animation-delay: 0.4s; }
+.slide.active .anim:nth-child(5) { animation-delay: 0.5s; }
+.slide.active .anim:nth-child(6) { animation-delay: 0.6s; }
+.slide.active .anim:nth-child(7) { animation-delay: 0.7s; }
+.slide.active .anim:nth-child(8) { animation-delay: 0.8s; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.active .anim { animation: none !important; transition: opacity 0.3s !important; transform: none !important; }
+}
+
+/* Typography */
+h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; }
+h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.15; }
+h3 { font-family: var(--font-display); font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 700; line-height: 1.25; }
+.subtitle { font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 300; color: var(--text-dim); line-height: 1.5; margin-top: 1rem; }
+p, li { font-size: clamp(1rem, 1.5vw, 1.3rem); line-height: 1.7; }
+
+/* Accent colors */
+.accent { color: var(--accent); }
+.accent2 { color: var(--accent-2); }
+.accent3 { color: var(--accent-3); }
+
+/* Slide types */
+.slide--title {
+  background: linear-gradient(135deg, #0e1117 0%, #1a1f35 50%, #0e1117 100%);
+  text-align: center;
+  align-items: center;
+}
+.slide--section {
+  background: linear-gradient(135deg, var(--surface) 0%, #1e2540 100%);
+  text-align: center;
+  align-items: center;
+}
+.slide--section .section-num {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 800;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+/* Stats grid */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.stat { text-align: center; padding: 1.5rem; background: var(--surface); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); }
+.stat__number { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; line-height: 1; }
+.stat__label { font-size: 0.9rem; color: var(--text-dim); margin-top: 0.5rem; }
+
+/* Two column */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; width: 100%; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+/* List */
+.slide ul { list-style: none; padding: 0; }
+.slide li { padding: 0.6rem 0; padding-left: 1.5rem; position: relative; font-size: clamp(0.95rem, 1.4vw, 1.2rem); }
+.slide li::before { content: ''; position: absolute; left: 0; top: 1.1rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.slide li + li { border-top: 1px solid rgba(255,255,255,0.05); }
+
+/* Pipeline / flow */
+.flow { display: flex; gap: 0; align-items: center; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+.flow__step {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1.2rem 1.8rem;
+  text-align: center;
+  min-width: 150px;
+}
+.flow__step-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.flow__step-label { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.flow__step-detail { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.2rem; }
+.flow__arrow { font-size: 1.5rem; color: var(--accent); padding: 0 0.8rem; }
+
+/* Code block */
+.code-block {
+  background: #0d1117;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 1.5rem;
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  line-height: 1.6;
+  color: #c9d1d9;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+.code-block .comment { color: #6e7681; }
+.code-block .keyword { color: var(--accent); }
+.code-block .string { color: var(--accent-3); }
+
+/* Tag */
+.tag { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 0.3em 0.8em; border-radius: 100px; margin: 0.2rem; }
+.tag--blue { background: rgba(56,189,248,0.15); color: var(--accent); border: 1px solid rgba(56,189,248,0.25); }
+.tag--purple { background: rgba(167,139,250,0.15); color: var(--accent-2); border: 1px solid rgba(167,139,250,0.25); }
+.tag--green { background: rgba(52,211,153,0.15); color: var(--accent-3); border: 1px solid rgba(52,211,153,0.25); }
+
+/* Progress bar */
+.progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--accent); z-index: 100; transition: width 0.3s; }
+.counter { position: fixed; bottom: 12px; right: 20px; font-size: 0.75rem; color: var(--text-dim); z-index: 100; }
+
+/* Quote */
+.quote-mark { font-family: var(--font-display); font-size: 8rem; line-height: 0.6; color: var(--accent); opacity: 0.25; }
+.quote-text { font-family: var(--font-display); font-size: clamp(1.3rem, 2.5vw, 2rem); font-style: italic; line-height: 1.5; margin-top: 1rem; max-width: 700px; }
+.quote-attr { font-size: 0.9rem; color: var(--text-dim); margin-top: 1.5rem; }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- SLIDE 1: Title -->
+<div class="slide slide--title active" id="slide-1">
+  <p class="anim" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--accent); margin-bottom:1.5rem;">AI Workshop 2026</p>
+  <h1 class="anim">Fully Automated<br><span class="accent">Ski Blog</span> with AI</h1>
+  <p class="subtitle anim">How Claude + Gemini build, write, illustrate, and publish a complete travel blog</p>
+  <p class="anim" style="margin-top:2rem; font-size:0.85rem; color:var(--text-dim);">Alex Miller &middot; Vienna Ski Weekends &middot; February 2026</p>
+</div>
+
+<!-- SLIDE 2: The Big Picture -->
+<div class="slide slide--section" id="slide-2">
+  <div class="section-num anim">01</div>
+  <h2 class="anim">The Big Picture</h2>
+  <p class="subtitle anim">What does "fully automated blog" mean?</p>
+</div>
+
+<!-- SLIDE 3: What we built -->
+<div class="slide" id="slide-3">
+  <h2 class="anim">One Command, Full Blog</h2>
+  <p class="subtitle anim">A single command generates 15 articles with images, then publishes them live.</p>
+  <div class="stats anim">
+    <div class="stat">
+      <div class="stat__number accent">15</div>
+      <div class="stat__label">AI-written articles</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number accent2">15</div>
+      <div class="stat__label">AI-generated images</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number accent3">~$1.50</div>
+      <div class="stat__label">Total cost</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number" style="color:#fb923c">0</div>
+      <div class="stat__label">Lines written by a human</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: The Pipeline -->
+<div class="slide slide--section" id="slide-4">
+  <div class="section-num anim">02</div>
+  <h2 class="anim">The Content Pipeline</h2>
+  <p class="subtitle anim">From topic list to live blog in 15 minutes</p>
+</div>
+
+<!-- SLIDE 5: Pipeline Flow -->
+<div class="slide" id="slide-5">
+  <h2 class="anim">How It Works</h2>
+  <div class="flow anim">
+    <div class="flow__step">
+      <div class="flow__step-icon">&#128221;</div>
+      <div class="flow__step-label">Topics List</div>
+      <div class="flow__step-detail">15 topics in JSON</div>
+    </div>
+    <div class="flow__arrow">&rarr;</div>
+    <div class="flow__step">
+      <div class="flow__step-icon">&#129302;</div>
+      <div class="flow__step-label">Claude AI</div>
+      <div class="flow__step-detail">Writes each article</div>
+    </div>
+    <div class="flow__arrow">&rarr;</div>
+    <div class="flow__step">
+      <div class="flow__step-icon">&#127912;</div>
+      <div class="flow__step-label">Gemini AI</div>
+      <div class="flow__step-detail">Creates hero images</div>
+    </div>
+    <div class="flow__arrow">&rarr;</div>
+    <div class="flow__step">
+      <div class="flow__step-icon">&#9881;</div>
+      <div class="flow__step-label">11ty Builds</div>
+      <div class="flow__step-detail">Static HTML site</div>
+    </div>
+    <div class="flow__arrow">&rarr;</div>
+    <div class="flow__step">
+      <div class="flow__step-icon">&#127760;</div>
+      <div class="flow__step-label">GitHub Pages</div>
+      <div class="flow__step-detail">Live on the web</div>
+    </div>
+  </div>
+  <p class="anim" style="margin-top:2rem; text-align:center; color:var(--text-dim); font-size:0.9rem;">The entire process runs with a single command: <code style="background:var(--surface); padding:0.2em 0.6em; border-radius:4px; color:var(--accent);">python3 scripts/generate_batch.py</code></p>
+</div>
+
+<!-- SLIDE 6: Article Generation -->
+<div class="slide" id="slide-6">
+  <h2 class="anim">Article Generation</h2>
+  <p class="subtitle anim">Claude Sonnet 4 writes 2,000-word SEO articles via the OpenRouter API</p>
+  <div class="two-col" style="margin-top:2rem;">
+    <div class="anim">
+      <h3>What goes in</h3>
+      <ul>
+        <li>Topic and target keyword</li>
+        <li>Real resort data (prices, distances, slopes)</li>
+        <li>SEO writing rules and format guidelines</li>
+        <li>First-person voice instructions</li>
+      </ul>
+    </div>
+    <div class="anim">
+      <h3>What comes out</h3>
+      <ul>
+        <li>Complete Markdown article with frontmatter</li>
+        <li>SEO meta title and description</li>
+        <li>FAQ section for Google snippets</li>
+        <li>Internal links to related articles</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: Image Generation -->
+<div class="slide" id="slide-7">
+  <h2 class="anim">Image Generation</h2>
+  <p class="subtitle anim">Nano Banana (Gemini 2.5 Flash Image) creates photorealistic hero images</p>
+  <div class="two-col" style="margin-top:2rem;">
+    <div class="anim">
+      <h3>The Prompt</h3>
+      <div class="code-block">
+        <span class="comment">// Each article gets a custom scene</span><br>
+        <span class="string">"Stunning alpine scenery with<br>
+        a modern chairlift, dramatic<br>
+        rock faces, and perfectly<br>
+        groomed slopes"</span><br><br>
+        <span class="comment">// + style requirements:</span><br>
+        <span class="string">"Editorial travel photography,<br>
+        National Geographic style,<br>
+        16:9 landscape composition"</span>
+      </div>
+    </div>
+    <div class="anim">
+      <h3>The Result</h3>
+      <div style="background:linear-gradient(135deg,#1a3a5c,#2d5a3e);border-radius:10px;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.08);">
+        <p style="color:var(--text-dim);font-size:0.85rem;">[AI-generated hero image]<br>Saved as optimized WebP</p>
+      </div>
+      <div style="margin-top:1rem;">
+        <span class="tag tag--blue">Gemini 2.5 Flash</span>
+        <span class="tag tag--green">WebP output</span>
+        <span class="tag tag--purple">~100KB each</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: SEO Section -->
+<div class="slide slide--section" id="slide-8">
+  <div class="section-num anim">03</div>
+  <h2 class="anim">SEO Strategy</h2>
+  <p class="subtitle anim">Following Google's E-E-A-T guidelines</p>
+</div>
+
+<!-- SLIDE 9: SEO Details -->
+<div class="slide" id="slide-9">
+  <h2 class="anim">Built for Google</h2>
+  <div class="two-col" style="margin-top:1.5rem;">
+    <div class="anim">
+      <h3 style="color:var(--accent)">E-E-A-T Signals</h3>
+      <ul>
+        <li><strong>Experience</strong> -- First-person writing style</li>
+        <li><strong>Expertise</strong> -- Real resort data and facts</li>
+        <li><strong>Authority</strong> -- Author bio on every page</li>
+        <li><strong>Trust</strong> -- About page, dates, schema</li>
+      </ul>
+    </div>
+    <div class="anim">
+      <h3 style="color:var(--accent-3)">Technical SEO</h3>
+      <ul>
+        <li>JSON-LD schema (BlogPosting, FAQ, Breadcrumbs)</li>
+        <li>XML sitemap + robots.txt</li>
+        <li>Open Graph + Twitter Cards</li>
+        <li>Internal linking between articles</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: Tech Stack -->
+<div class="slide slide--section" id="slide-10">
+  <div class="section-num anim">04</div>
+  <h2 class="anim">The Tech Stack</h2>
+  <p class="subtitle anim">Simple tools, powerful results</p>
+</div>
+
+<!-- SLIDE 11: Stack Details -->
+<div class="slide" id="slide-11">
+  <h2 class="anim">What Powers It</h2>
+  <div class="stats anim" style="margin-top:1.5rem;">
+    <div class="stat">
+      <div class="stat__number" style="font-size:1.5rem;color:var(--accent)">Claude Sonnet 4</div>
+      <div class="stat__label">Article writing via OpenRouter API</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number" style="font-size:1.5rem;color:var(--accent-3)">Gemini 2.5 Flash</div>
+      <div class="stat__label">Image generation (Nano Banana)</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number" style="font-size:1.5rem;color:var(--accent-2)">Eleventy (11ty)</div>
+      <div class="stat__label">Static site generator</div>
+    </div>
+    <div class="stat">
+      <div class="stat__number" style="font-size:1.5rem;color:#fb923c">GitHub Pages</div>
+      <div class="stat__label">Free hosting + auto-deploy</div>
+    </div>
+  </div>
+  <div class="anim" style="margin-top:2rem; text-align:center;">
+    <span class="tag tag--blue">Python scripts</span>
+    <span class="tag tag--green">Markdown</span>
+    <span class="tag tag--purple">Nunjucks templates</span>
+    <span class="tag tag--blue">CSS</span>
+    <span class="tag tag--green">GitHub Actions</span>
+  </div>
+</div>
+
+<!-- SLIDE 12: Commands -->
+<div class="slide" id="slide-12">
+  <h2 class="anim">Three Commands to Run It</h2>
+  <div class="anim" style="margin-top:2rem;">
+    <div class="code-block" style="margin-bottom:1.5rem;">
+      <span class="comment"># 1. Generate all articles + images (~15 min)</span><br>
+      <span class="keyword">python3</span> scripts/generate_batch.py<br><br>
+      <span class="comment"># 2. Preview locally</span><br>
+      <span class="keyword">npm</span> start<br><br>
+      <span class="comment"># 3. Publish live</span><br>
+      <span class="keyword">bash</span> scripts/publish.sh
+    </div>
+    <p style="color:var(--text-dim); font-size:0.9rem;">That's it. From zero to a fully published blog with 15 articles and images.</p>
+  </div>
+</div>
+
+<!-- SLIDE 13: Quote -->
+<div class="slide" id="slide-13">
+  <div class="anim quote-mark">"</div>
+  <p class="anim quote-text">The entire blog -- 15 articles, 15 hero images, SEO markup, sitemap, and deployment -- was created without writing a single line of content by hand.</p>
+  <p class="anim quote-attr">-- Built with Claude Code + Gemini APIs</p>
+</div>
+
+<!-- SLIDE 14: Closing -->
+<div class="slide slide--title" id="slide-14">
+  <p class="anim" style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--accent); margin-bottom:1rem;">Live Now</p>
+  <h1 class="anim"><span class="accent">Vienna Ski</span> Weekends</h1>
+  <p class="subtitle anim" style="max-width:500px;margin:1rem auto 0;">nichtagentur.github.io/ski-trips-vienna</p>
+  <div class="anim" style="margin-top:2.5rem;">
+    <span class="tag tag--blue" style="font-size:0.85rem;padding:0.4em 1em;">15 Articles</span>
+    <span class="tag tag--green" style="font-size:0.85rem;padding:0.4em 1em;">AI Images</span>
+    <span class="tag tag--purple" style="font-size:0.85rem;padding:0.4em 1em;">SEO Optimized</span>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+const total = slides.length;
+
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  slides[current].classList.remove('active');
+  slides[current].classList.add(n > current ? 'prev' : '');
+  setTimeout(() => slides[current === 0 ? 0 : current].classList.remove('prev'), 500);
+  slides.forEach(s => { s.classList.remove('active', 'prev'); });
+  current = n;
+  slides[current].classList.add('active');
+  document.getElementById('progress').style.width = ((current / (total - 1)) * 100) + '%';
+  document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+}
+
+document.addEventListener('keydown', e => {
+  switch(e.key) {
+    case 'ArrowRight': case ' ': e.preventDefault(); goTo(current + 1); break;
+    case 'ArrowLeft': case 'Backspace': e.preventDefault(); goTo(current - 1); break;
+    case 'Home': goTo(0); break;
+    case 'End': goTo(total - 1); break;
+    case 'f': case 'F':
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+      break;
+    default:
+      if (e.key >= '1' && e.key <= '9') goTo(parseInt(e.key) - 1);
+  }
+});
+
+// Touch support
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) { diff > 0 ? goTo(current + 1) : goTo(current - 1); }
+});
+
+goTo(0);
+</script>
+</body>
+</html>
