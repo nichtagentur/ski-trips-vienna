@@ -11,9 +11,7 @@
 <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">
 <meta property="og:site_name" content="{{ site.name }}">
 {% if heroImage %}
-<meta property="og:image" content="{{ site.url }}{{ heroImage | url }}">
-{% else %}
-<meta property="og:image" content="{{ site.url }}{{ '/images/default-og.jpg' | url }}">
+<meta property="og:image" content="{{ site.url }}{{ ('/images/' + heroImage) | url }}">
 {% endif %}
 
 {# Twitter Card #}
@@ -21,10 +19,13 @@
 <meta name="twitter:title" content="{{ title or site.name }}">
 <meta name="twitter:description" content="{{ description or (content | excerpt) }}">
 {% if heroImage %}
-<meta name="twitter:image" content="{{ site.url }}{{ heroImage | url }}">
-{% else %}
-<meta name="twitter:image" content="{{ site.url }}{{ '/images/default-og.jpg' | url }}">
+<meta name="twitter:image" content="{{ site.url }}{{ ('/images/' + heroImage) | url }}">
 {% endif %}
+
+{# Google Fonts - Playfair Display for headings #}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="{{ '/css/style.css' | url }}">
 <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ '/feed.xml' | url }}">

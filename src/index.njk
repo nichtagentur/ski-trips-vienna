@@ -5,6 +5,7 @@ description: "Your guide to the best weekend ski trips from Vienna. Expert-teste
 ---
 <section class="hero">
   <div class="hero__content">
+    <p class="hero__kicker">Your Alpine Guide</p>
     <h1 class="hero__title">Weekend Ski Trips from Vienna</h1>
     <p class="hero__tagline">Expert-tested Austrian ski resorts, all within a few hours of the city. Plan your next powder day.</p>
   </div>
@@ -19,11 +20,12 @@ description: "Your guide to the best weekend ski trips from Vienna. Expert-teste
     {% if latest.data.heroImage %}
     <div class="featured__image">
       <a href="{{ latest.url | url }}">
-        <img src="{{ latest.data.heroImage | url }}" alt="{{ latest.data.heroImageAlt or latest.data.title }}" loading="eager" width="800" height="420">
+        <img src="{{ ('/images/' + latest.data.heroImage) | url }}" alt="{{ latest.data.heroAlt or latest.data.title }}" loading="eager" width="800" height="420">
       </a>
     </div>
     {% endif %}
     <div class="featured__body">
+      <p class="featured__kicker">Featured</p>
       <h2 class="featured__title">
         <a href="{{ latest.url | url }}">{{ latest.data.title }}</a>
       </h2>
@@ -45,7 +47,7 @@ description: "Your guide to the best weekend ski trips from Vienna. Expert-teste
         {% if post.data.heroImage %}
         <div class="post-card__image">
           <a href="{{ post.url | url }}">
-            <img src="{{ post.data.heroImage | url }}" alt="{{ post.data.heroImageAlt or post.data.title }}" loading="lazy" width="400" height="210">
+            <img src="{{ ('/images/' + post.data.heroImage) | url }}" alt="{{ post.data.heroAlt or post.data.title }}" loading="lazy" width="400" height="210">
           </a>
         </div>
         {% endif %}

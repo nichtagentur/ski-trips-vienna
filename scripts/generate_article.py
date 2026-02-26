@@ -54,35 +54,33 @@ def generate_article_content(topic, keyword, image_filename, resort_data):
 
 
 def generate_hero_image(image_scene, image_filename):
-    """Call Imagen 4 to generate a hero image, convert to WebP."""
+    """Call Nano Banana (Gemini 2.5 Flash Image) to generate a hero image."""
     from google import genai
     from google.genai import types
     from PIL import Image as PILImage
+    import io
 
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     prompt = IMAGE_PROMPT.format(image_scene=image_scene)
 
-    print("  Calling Imagen 4 to generate hero image...")
+    print("  Calling Nano Banana (Gemini 2.5 Flash) to generate hero image...")
     try:
-        response = client.models.generate_images(
-            model="imagen-4.0-fast-generate-001",
-            prompt=prompt,
-            config=types.GenerateImagesConfig(number_of_images=1),
+        response = client.models.generate_content(
+            model="gemini-2.5-flash-image",
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_modalities=["IMAGE"],
+            ),
         )
 
-        if response.generated_images:
-            # Save as PNG first, then convert to WebP
-            tmp_path = IMAGES_DIR / "tmp_hero.png"
-            response.generated_images[0].image.save(str(tmp_path))
+        for part in response.candidates[0].content.parts:
+            if hasattr(part, "inline_data") and part.inline_data and part.inline_data.mime_type.startswith("image/"):
+                pil_img = PILImage.open(io.BytesIO(part.inline_data.data))
+                pil_img.save(IMAGES_DIR / image_filename, "WEBP", quality=82)
+                print(f"  Hero image saved: {image_filename}")
+                return True
 
-            # Convert to WebP for smaller file size
-            pil_img = PILImage.open(tmp_path)
-            pil_img.save(IMAGES_DIR / image_filename, "WEBP", quality=82)
-            tmp_path.unlink()
-            print(f"  Hero image saved: {image_filename}")
-            return True
-
-        print("  Warning: No image returned from Imagen")
+        print("  Warning: No image in response")
     except Exception as e:
         print(f"  Image generation failed: {e}")
 
