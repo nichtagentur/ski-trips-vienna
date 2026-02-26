@@ -146,6 +146,268 @@ strong { font-weight: 600; }
 }
 
 /* ==========================================================================
+   SNOW FORECAST - .snow-forecast
+   ========================================================================== */
+.snow-forecast {
+  background: var(--bg-warm);
+  padding: 3.5rem 2rem 3rem;
+}
+
+.snow-forecast__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.snow-forecast__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.snow-forecast__kicker {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--stone);
+  margin-bottom: 0.5rem;
+}
+
+.snow-forecast__title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+
+.snow-forecast__dates {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Loading state */
+.snow-loading {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.snow-loading__bar {
+  width: 200px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 3px;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.snow-loading__bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: var(--stone);
+  border-radius: 3px;
+  animation: snow-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes snow-shimmer {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+.snow-loading__text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.snow-error {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Winner card */
+.snow-winner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--bg);
+  border: 2px solid var(--stone);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.snow-winner--loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.snow-winner__icon {
+  font-size: 3rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.snow-winner__body {
+  flex: 1;
+}
+
+.snow-winner__kicker {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--stone);
+  margin: 0 0 0.3rem;
+}
+
+.snow-winner__name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 0.3rem;
+}
+
+.snow-winner__detail {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+}
+
+.snow-winner__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Resort grid */
+.snow-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.snow-card {
+  display: flex;
+  align-items: stretch;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.snow-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.snow-card__rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-warm);
+  border-right: 1px solid var(--border);
+}
+
+.snow-card__content {
+  flex: 1;
+  padding: 0.9rem 1.1rem;
+}
+
+.snow-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.snow-card__name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+}
+
+.snow-card__weather {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.snow-card__stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.snow-card__stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.snow-card__stat-value {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.snow-card__stat-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* Source attribution */
+.snow-forecast__source {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.snow-forecast__source a {
+  color: var(--text-muted);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .snow-forecast { padding: 2.5rem 1.5rem 2rem; }
+  .snow-forecast__title { font-size: 1.6rem; }
+  .snow-winner { flex-direction: column; text-align: center; padding: 1.5rem; }
+  .snow-winner__meta { justify-content: center; }
+  .snow-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .snow-card__stats { flex-wrap: wrap; gap: 0.5rem 0.8rem; }
+}
+
+/* ==========================================================================
    FEATURED ARTICLE - .featured
    ========================================================================== */
 .featured {

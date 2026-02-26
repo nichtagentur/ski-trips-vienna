@@ -16,7 +16,9 @@
     "dayPassAdult": 35,
     "dayPassChild": 17.5,
     "website": "https://www.hohewandwiese.com",
-    "bestFor": ["urban skiing", "beginners", "night skiing"]
+    "bestFor": ["urban skiing", "beginners", "night skiing"],
+    "lat": 48.15,
+    "lon": 16.23
   },
   {
     "name": "Unterberg",
@@ -35,7 +37,9 @@
     "dayPassAdult": 32,
     "dayPassChild": 16,
     "website": "https://www.unterberg.at",
-    "bestFor": ["hidden gem", "families", "natural snow"]
+    "bestFor": ["hidden gem", "families", "natural snow"],
+    "lat": 47.78,
+    "lon": 15.87
   },
   {
     "name": "Semmering (Zauberberg)",
@@ -54,7 +58,9 @@
     "dayPassAdult": 39,
     "dayPassChild": 20,
     "website": "https://www.zauberberg.at",
-    "bestFor": ["night skiing", "train access", "families"]
+    "bestFor": ["night skiing", "train access", "families"],
+    "lat": 47.63,
+    "lon": 15.83
   },
   {
     "name": "Stuhleck",
@@ -73,7 +79,9 @@
     "dayPassAdult": 41,
     "dayPassChild": 21,
     "website": "https://www.stuhleck.com",
-    "bestFor": ["all levels", "long runs", "night skiing"]
+    "bestFor": ["all levels", "long runs", "night skiing"],
+    "lat": 47.57,
+    "lon": 15.78
   },
   {
     "name": "Oetscher (Lackenhof)",
@@ -92,7 +100,9 @@
     "dayPassAdult": 38,
     "dayPassChild": 19,
     "website": "https://www.oetscher.at",
-    "bestFor": ["families", "kids programs", "scenic views"]
+    "bestFor": ["families", "kids programs", "scenic views"],
+    "lat": 47.86,
+    "lon": 15.22
   },
   {
     "name": "Hochkar",
@@ -111,7 +121,9 @@
     "dayPassAdult": 42,
     "dayPassChild": 21,
     "website": "https://www.hochkar.com",
-    "bestFor": ["snow reliability", "powder", "altitude"]
+    "bestFor": ["snow reliability", "powder", "altitude"],
+    "lat": 47.72,
+    "lon": 14.96
   },
   {
     "name": "Annaberg",
@@ -130,7 +142,9 @@
     "dayPassAdult": 34,
     "dayPassChild": 17,
     "website": "https://www.annaberg.info",
-    "bestFor": ["hidden gem", "families", "mixed abilities"]
+    "bestFor": ["hidden gem", "families", "mixed abilities"],
+    "lat": 47.87,
+    "lon": 15.34
   },
   {
     "name": "Moenichkirchen-Mariensee",
@@ -149,7 +163,9 @@
     "dayPassAdult": 34.5,
     "dayPassChild": 18,
     "website": "https://www.moenichkirchen.at",
-    "bestFor": ["budget", "families", "quiet"]
+    "bestFor": ["budget", "families", "quiet"],
+    "lat": 47.51,
+    "lon": 16.04
   },
   {
     "name": "Obertauern",
@@ -168,7 +184,9 @@
     "dayPassAdult": 62,
     "dayPassChild": 31,
     "website": "https://www.obertauern.com",
-    "bestFor": ["luxury", "serious skiing", "resort experience"]
+    "bestFor": ["luxury", "serious skiing", "resort experience"],
+    "lat": 47.25,
+    "lon": 13.56
   },
   {
     "name": "Hinterstoder-Hoess",
@@ -187,6 +205,8 @@
     "dayPassAdult": 55,
     "dayPassChild": 28,
     "website": "https://www.hinterstoder.at",
-    "bestFor": ["intermediates", "train access", "premium day trip"]
+    "bestFor": ["intermediates", "train access", "premium day trip"],
+    "lat": 47.69,
+    "lon": 14.15
   }
 ]

@@ -11,6 +11,29 @@ description: "Your guide to the best weekend ski trips from Vienna. Expert-teste
   </div>
 </section>
 
+<section class="snow-forecast" id="snow-forecast" aria-label="Weekend snow forecast">
+  <div class="snow-forecast__inner">
+    <div class="snow-forecast__header">
+      <p class="snow-forecast__kicker">Live Snow Report</p>
+      <h2 class="snow-forecast__title">Best Snow This Weekend</h2>
+      <p class="snow-forecast__dates" id="snow-date-range"></p>
+    </div>
+
+    <div id="snow-loading" class="snow-loading">
+      <div class="snow-loading__bar"></div>
+      <p class="snow-loading__text">Checking snow conditions at 10 resorts...</p>
+    </div>
+
+    <div id="snow-content" style="display:none;">
+      <div class="snow-winner" id="snow-winner"></div>
+      <div class="snow-grid" id="snow-grid"></div>
+      <p class="snow-forecast__source">Snow data from <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> -- updated live on every visit</p>
+    </div>
+  </div>
+</section>
+
+<script src="{{ '/js/snow-forecast.js' | url }}"></script>
+
 {% set postList = collections.posts %}
 
 {% if postList.length %}
