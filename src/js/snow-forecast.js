@@ -1,49 +1,49 @@
 (function () {
   const RESORTS = [
-    { name: "Hohe Wand Wiese", slug: "hohe-wand-wiese", lat: 48.15, lon: 16.23, distance: "30 min", altitude: 470 },
-    { name: "Unterberg", slug: "unterberg", lat: 47.78, lon: 15.87, distance: "1 hour", altitude: 1342 },
-    { name: "Semmering", slug: "semmering", lat: 47.63, lon: 15.83, distance: "1h 15min", altitude: 1350 },
-    { name: "Stuhleck", slug: "stuhleck", lat: 47.57, lon: 15.78, distance: "1h 20min", altitude: 1774 },
-    { name: "Oetscher", slug: "oetscher", lat: 47.86, lon: 15.22, distance: "2 hours", altitude: 1400 },
-    { name: "Hochkar", slug: "hochkar", lat: 47.72, lon: 14.96, distance: "2 hours", altitude: 1808 },
-    { name: "Annaberg", slug: "annaberg", lat: 47.87, lon: 15.34, distance: "1h 45min", altitude: 1200 },
-    { name: "Moenichkirchen", slug: "moenichkirchen", lat: 47.51, lon: 16.04, distance: "1h 30min", altitude: 1280 },
-    { name: "Obertauern", slug: "obertauern", lat: 47.25, lon: 13.56, distance: "3h 30min", altitude: 2313 },
-    { name: "Hinterstoder", slug: "hinterstoder", lat: 47.69, lon: 14.15, distance: "2h 45min", altitude: 1860 }
+    { name: "Hohe Wand Wiese", slug: "hohe-wand-wiese", lat: 48.15, lon: 16.23, distance: "30 min", altitude: 470, lifts: 2 },
+    { name: "Unterberg", slug: "unterberg", lat: 47.78, lon: 15.87, distance: "1 hour", altitude: 1342, lifts: 5 },
+    { name: "Semmering", slug: "semmering", lat: 47.63, lon: 15.83, distance: "1h 15min", altitude: 1350, lifts: 6 },
+    { name: "Stuhleck", slug: "stuhleck", lat: 47.57, lon: 15.78, distance: "1h 20min", altitude: 1774, lifts: 11 },
+    { name: "Oetscher", slug: "oetscher", lat: 47.86, lon: 15.22, distance: "2 hours", altitude: 1400, lifts: 7 },
+    { name: "Hochkar", slug: "hochkar", lat: 47.72, lon: 14.96, distance: "2 hours", altitude: 1808, lifts: 8 },
+    { name: "Annaberg", slug: "annaberg", lat: 47.87, lon: 15.34, distance: "1h 45min", altitude: 1200, lifts: 8 },
+    { name: "Moenichkirchen", slug: "moenichkirchen", lat: 47.51, lon: 16.04, distance: "1h 30min", altitude: 1280, lifts: 7 },
+    { name: "Obertauern", slug: "obertauern", lat: 47.25, lon: 13.56, distance: "3h 30min", altitude: 2313, lifts: 26 },
+    { name: "Hinterstoder", slug: "hinterstoder", lat: 47.69, lon: 14.15, distance: "2h 45min", altitude: 1860, lifts: 12 }
   ];
 
-  // Weather code to description and icon
+  // Weather code to description and emoji
   var WEATHER = {
-    0: { desc: "Clear", icon: "&#9728;" },         // sun
-    1: { desc: "Mostly clear", icon: "&#9728;" },
-    2: { desc: "Partly cloudy", icon: "&#9925;" },  // sun behind cloud
-    3: { desc: "Overcast", icon: "&#9729;" },        // cloud
-    45: { desc: "Fog", icon: "&#9729;" },
-    48: { desc: "Icy fog", icon: "&#9729;" },
-    51: { desc: "Light drizzle", icon: "&#9730;" },
-    53: { desc: "Drizzle", icon: "&#9730;" },
-    55: { desc: "Heavy drizzle", icon: "&#9730;" },
-    61: { desc: "Light rain", icon: "&#9730;" },
-    63: { desc: "Rain", icon: "&#9730;" },
-    65: { desc: "Heavy rain", icon: "&#9730;" },
-    66: { desc: "Freezing rain", icon: "&#9730;" },
-    67: { desc: "Heavy freezing rain", icon: "&#9730;" },
-    71: { desc: "Light snow", icon: "&#10052;" },    // snowflake
-    73: { desc: "Snow", icon: "&#10052;" },
-    75: { desc: "Heavy snow", icon: "&#10052;" },
-    77: { desc: "Snow grains", icon: "&#10052;" },
-    80: { desc: "Rain showers", icon: "&#9730;" },
-    81: { desc: "Heavy showers", icon: "&#9730;" },
-    82: { desc: "Violent showers", icon: "&#9730;" },
-    85: { desc: "Snow showers", icon: "&#10052;" },
-    86: { desc: "Heavy snow showers", icon: "&#10052;" },
-    95: { desc: "Thunderstorm", icon: "&#9889;" },
-    96: { desc: "Thunderstorm + hail", icon: "&#9889;" },
-    99: { desc: "Thunderstorm + heavy hail", icon: "&#9889;" }
+    0:  { desc: "Clear skies",       icon: "\u2600\uFE0F" },
+    1:  { desc: "Mostly clear",      icon: "\uD83C\uDF24\uFE0F" },
+    2:  { desc: "Partly cloudy",     icon: "\u26C5" },
+    3:  { desc: "Overcast",          icon: "\u2601\uFE0F" },
+    45: { desc: "Foggy",             icon: "\uD83C\uDF2B\uFE0F" },
+    48: { desc: "Icy fog",           icon: "\uD83C\uDF2B\uFE0F" },
+    51: { desc: "Light drizzle",     icon: "\uD83C\uDF26\uFE0F" },
+    53: { desc: "Drizzle",           icon: "\uD83C\uDF26\uFE0F" },
+    55: { desc: "Heavy drizzle",     icon: "\uD83C\uDF27\uFE0F" },
+    61: { desc: "Light rain",        icon: "\uD83C\uDF26\uFE0F" },
+    63: { desc: "Rain",              icon: "\uD83C\uDF27\uFE0F" },
+    65: { desc: "Heavy rain",        icon: "\uD83C\uDF27\uFE0F" },
+    66: { desc: "Freezing rain",     icon: "\uD83E\uDEE7" },
+    67: { desc: "Heavy freezing rain", icon: "\uD83E\uDEE7" },
+    71: { desc: "Light snow",        icon: "\uD83C\uDF28\uFE0F" },
+    73: { desc: "Snow",              icon: "\u2744\uFE0F" },
+    75: { desc: "Heavy snow",        icon: "\u2744\uFE0F" },
+    77: { desc: "Snow grains",       icon: "\u2744\uFE0F" },
+    80: { desc: "Rain showers",      icon: "\uD83C\uDF27\uFE0F" },
+    81: { desc: "Heavy showers",     icon: "\uD83C\uDF27\uFE0F" },
+    82: { desc: "Violent showers",   icon: "\uD83C\uDF27\uFE0F" },
+    85: { desc: "Snow showers",      icon: "\uD83C\uDF28\uFE0F" },
+    86: { desc: "Heavy snow showers", icon: "\uD83C\uDF28\uFE0F" },
+    95: { desc: "Thunderstorm",      icon: "\u26A1" },
+    96: { desc: "Thunderstorm + hail", icon: "\u26A1" },
+    99: { desc: "Thunderstorm + heavy hail", icon: "\u26A1" }
   };
 
   function getWeather(code) {
-    return WEATHER[code] || { desc: "Unknown", icon: "&#9729;" };
+    return WEATHER[code] || { desc: "Unknown", icon: "\u2601\uFE0F" };
   }
 
   // Get next Saturday and Sunday dates as YYYY-MM-DD
@@ -128,6 +128,7 @@
       slug: resort.slug,
       distance: resort.distance,
       altitude: resort.altitude,
+      lifts: resort.lifts,
       snowfall: Math.round(totalSnow * 10) / 10,
       tempMin: Math.round(minTemp),
       tempMax: Math.round(maxTemp),
@@ -173,9 +174,10 @@
             '<h3 class="snow-winner__name">Head to ' + winner.name + '!</h3>' +
             '<p class="snow-winner__detail">' + snowMessage + '</p>' +
             '<p class="snow-winner__meta">' +
-              '<span>' + winner.distance + ' from Vienna</span>' +
+              '<span>' + winner.weather.icon + ' ' + winner.weather.desc + '</span>' +
               '<span>' + winner.tempMin + '/' + winner.tempMax + ' &#176;C</span>' +
-              '<span>' + winner.weather.desc + '</span>' +
+              '<span>' + winner.distance + ' from Vienna</span>' +
+              '<span>' + winner.lifts + ' lifts</span>' +
             '</p>' +
           '</div>';
         winnerEl.classList.add("snow-winner--loaded");
@@ -207,8 +209,8 @@
                     '<span class="snow-card__stat-label">Temp</span>' +
                   '</div>' +
                   '<div class="snow-card__stat">' +
-                    '<span class="snow-card__stat-value">' + r.altitude + ' m</span>' +
-                    '<span class="snow-card__stat-label">Summit</span>' +
+                    '<span class="snow-card__stat-value">' + r.lifts + '</span>' +
+                    '<span class="snow-card__stat-label">Lifts</span>' +
                   '</div>' +
                   '<div class="snow-card__stat">' +
                     '<span class="snow-card__stat-value">' + r.distance + '</span>' +
