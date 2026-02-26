@@ -1,0 +1,14 @@
+{
+  "name": "ski-trips-vienna",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "SEO-optimized blog about weekend ski trips from Vienna",
+  "scripts": {
+    "build": "npx @11ty/eleventy --pathprefix=/ski-trips-vienna/",
+    "start": "npx @11ty/eleventy --serve --incremental"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.2"
+  }
+}

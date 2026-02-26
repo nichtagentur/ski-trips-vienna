@@ -1,0 +1,16 @@
+{
+  "name": "Vienna Ski Weekends",
+  "url": "https://nichtagentur.github.io/ski-trips-vienna",
+  "description": "Your guide to the best weekend ski trips from Vienna. Expert-tested ski resorts within 1-4 hours of the Austrian capital.",
+  "language": "en",
+  "author": {
+    "name": "Alex Miller",
+    "role": "Travel Product Manager & Ski Enthusiast",
+    "bio": "Based in Vienna, Alex has spent over a decade exploring Austrian ski resorts on weekends and holidays. Working in travel tech by day, Alex combines insider knowledge of the Austrian Alps with a passion for making ski trip planning simple and accessible for everyone -- from first-timers to seasoned powder chasers.",
+    "url": "https://nichtagentur.github.io/ski-trips-vienna/about/"
+  },
+  "organization": {
+    "name": "Vienna Ski Weekends",
+    "url": "https://nichtagentur.github.io/ski-trips-vienna"
+  }
+}

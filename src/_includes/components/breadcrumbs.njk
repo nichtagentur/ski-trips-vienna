@@ -1,0 +1,46 @@
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol class="breadcrumbs__list">
+    <li class="breadcrumbs__item"><a href="{{ '/' | url }}">Home</a></li>
+    {% if tags %}
+      {% for tag in tags %}
+        {% if tag !== "posts" %}
+          <li class="breadcrumbs__item"><a href="{{ ('/tags/' + tag + '/') | url }}">{{ tag }}</a></li>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    <li class="breadcrumbs__item" aria-current="page">{{ title }}</li>
+  </ol>
+</nav>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}{{ '/' | url }}"
+    }{% if tags %},{% set position = 2 %}{% for tag in tags %}{% if tag !== "posts" %}
+    {
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ tag }}",
+      "item": "{{ site.url }}{{ ('/tags/' + tag + '/') | url }}"
+    },{% set position = position + 1 %}{% endif %}{% endfor %}
+    {
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ title }}",
+      "item": "{{ site.url }}{{ page.url }}"
+    }{% else %},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ title }}",
+      "item": "{{ site.url }}{{ page.url }}"
+    }{% endif %}
+  ]
+}
+</script>

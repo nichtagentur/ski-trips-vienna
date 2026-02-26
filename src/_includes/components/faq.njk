@@ -1,0 +1,32 @@
+{% if faq and faq.length %}
+<section class="faq" aria-label="Frequently Asked Questions">
+  <h2 class="faq__heading">Frequently Asked Questions</h2>
+  <dl class="faq__list">
+    {% for item in faq %}
+    <div class="faq__item">
+      <dt class="faq__question">{{ item.question }}</dt>
+      <dd class="faq__answer">{{ item.answer }}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in faq %}
+    {
+      "@type": "Question",
+      "name": "{{ item.question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ item.answer }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}

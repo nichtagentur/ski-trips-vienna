@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "components/head.njk" %}
+</head>
+<body>
+  {% include "components/nav.njk" %}
+
+  <main id="main-content">
+    {{ content | safe }}
+  </main>
+
+  {% include "components/footer.njk" %}
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ site.organization.name }}",
+    "url": "{{ site.organization.url }}",
+    "description": "{{ site.description }}"
+  }
+  </script>
+</body>
+</html>

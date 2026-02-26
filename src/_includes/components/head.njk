@@ -1,0 +1,30 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if title and title !== site.name %}{{ title }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
+<meta name="description" content="{{ description or (content | excerpt) }}">
+<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+{# Open Graph #}
+<meta property="og:title" content="{{ title or site.name }}">
+<meta property="og:description" content="{{ description or (content | excerpt) }}">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">
+<meta property="og:site_name" content="{{ site.name }}">
+{% if heroImage %}
+<meta property="og:image" content="{{ site.url }}{{ heroImage | url }}">
+{% else %}
+<meta property="og:image" content="{{ site.url }}{{ '/images/default-og.jpg' | url }}">
+{% endif %}
+
+{# Twitter Card #}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title or site.name }}">
+<meta name="twitter:description" content="{{ description or (content | excerpt) }}">
+{% if heroImage %}
+<meta name="twitter:image" content="{{ site.url }}{{ heroImage | url }}">
+{% else %}
+<meta name="twitter:image" content="{{ site.url }}{{ '/images/default-og.jpg' | url }}">
+{% endif %}
+
+<link rel="stylesheet" href="{{ '/css/style.css' | url }}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ '/feed.xml' | url }}">

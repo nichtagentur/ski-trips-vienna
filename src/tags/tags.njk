@@ -1,0 +1,20 @@
+---
+layout: layouts/page.njk
+title: Browse by Resort & Topic
+description: "Browse all ski resort guides and articles by topic."
+permalink: /tags/
+eleventyExcludeFromCollections: true
+---
+
+<section class="tags-page" aria-label="All topics">
+  <ul class="tags-page__list">
+    {%- for tag in collections.tagList %}
+    <li class="tags-page__item">
+      <a href="{{ ('/tags/' + tag + '/') | url }}" class="tags-page__link">
+        {{ tag }}
+        <span class="tags-page__count">({{ collections[tag].length }})</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>

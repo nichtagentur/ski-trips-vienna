@@ -1,0 +1,10 @@
+<header class="site-header">
+  <nav class="nav" aria-label="Main navigation">
+    <a href="{{ '/' | url }}" class="nav__site-name">Vienna Ski Weekends</a>
+    <ul class="nav__links">
+      <li><a href="{{ '/' | url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a></li>
+      <li><a href="{{ '/tags/' | url }}"{% if page.url == '/tags/' %} aria-current="page"{% endif %}>Resorts</a></li>
+      <li><a href="{{ '/about/' | url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a></li>
+    </ul>
+  </nav>
+</header>

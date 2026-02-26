@@ -1,0 +1,71 @@
+---
+layout: layouts/base.njk
+---
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ title }}",
+    "description": "{{ description or (content | excerpt) }}",
+    {% if heroImage %}"image": "{{ site.url }}{{ heroImage | url }}",{% endif %}
+    "datePublished": "{{ page.date | htmlDateString }}",
+    "dateModified": "{{ page.date | htmlDateString }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ site.author.name }}",
+      "url": "{{ site.author.url }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.organization.name }}",
+      "url": "{{ site.organization.url }}"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ site.url }}{{ page.url }}"
+    }
+  }
+  </script>
+
+  {% include "components/breadcrumbs.njk" %}
+
+  {% if heroImage %}
+  <div class="post__hero">
+    <img
+      src="{{ heroImage | url }}"
+      alt="{{ heroImageAlt or title }}"
+      class="post__hero-image"
+      loading="eager"
+      width="1200"
+      height="630"
+    >
+  </div>
+  {% endif %}
+
+  <header class="post__header">
+    <h1 class="post__title" itemprop="headline">{{ title }}</h1>
+    <div class="post__meta">
+      <time class="post__date" datetime="{{ page.date | htmlDateString }}" itemprop="datePublished">
+        {{ page.date | readableDate }}
+      </time>
+      {% if tags %}
+      <div class="post__tags">
+        {% for tag in tags %}
+          {% if tag !== "posts" %}
+          <a href="{{ ('/tags/' + tag + '/') | url }}" class="post__tag">{{ tag }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="post__content" itemprop="articleBody">
+    {{ content | safe }}
+  </div>
+
+  {% include "components/author-bio.njk" %}
+  {% include "components/faq.njk" %}
+  {% include "components/related-posts.njk" %}
+</article>

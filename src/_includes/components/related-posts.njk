@@ -1,0 +1,19 @@
+{% set related = collections.posts | relatedPosts(tags, page.url) %}
+{% if related.length %}
+<section class="related-posts" aria-label="Related articles">
+  <h2 class="related-posts__heading">Related Articles</h2>
+  <div class="related-posts__grid">
+    {% for post in related %}
+    <article class="related-posts__card">
+      <h3 class="related-posts__title">
+        <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+      </h3>
+      <p class="related-posts__excerpt">{{ post.content | excerpt }}</p>
+      <time class="related-posts__date" datetime="{{ post.date | htmlDateString }}">
+        {{ post.date | readableDate }}
+      </time>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
