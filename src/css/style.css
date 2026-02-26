@@ -151,6 +151,12 @@ strong { font-weight: 600; }
 .snow-forecast {
   background: var(--bg-warm);
   padding: 3.5rem 2rem 3rem;
+  position: relative;
+  z-index: 11;
+}
+
+.snow-forecast ~ .featured {
+  margin-top: 2rem;
 }
 
 .snow-forecast__inner {
