@@ -32,6 +32,11 @@ Before diving into my top picks, let me share what makes these smaller resorts n
 
 The proximity factor cannot be overstated. When your 5-year-old has a meltdown at 2 PM, being able to pack up and be home for dinner transforms a potential disaster into just another part of the adventure. Plus, many of these resorts are accessible by train, meaning you can avoid the stress of driving in snowy conditions while teaching kids about sustainable travel.
 
+<figure class="fun-gif">
+  <img src="https://media.giphy.com/media/OA4QWyh2NXuq4/giphy.gif" alt="Funny skiing GIF">
+  <figcaption>The whole family getting into the ski spirit!</figcaption>
+</figure>
+
 ## The 5 Best Family Ski Resorts Near Vienna
 
 ### 1. Hohe Wand Wiese – Vienna's Hidden Ski Secret

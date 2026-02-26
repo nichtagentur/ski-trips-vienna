@@ -26,6 +26,11 @@ The crisp January air hit my face as I stepped off the train at Semmering statio
 
 Vienna's location is a skier's dream. Surrounded by the Eastern Alps, you can literally be on snow-covered slopes within 30 minutes of leaving Stephansplatz. After exploring every major resort within driving distance and quite a few by train, I've learned what works for beginners and what doesn't. This isn't about conquering the steepest runs – it's about finding your confidence, falling safely, and discovering the pure joy of gliding down a mountain.
 
+<figure class="fun-gif">
+  <img src="https://media.giphy.com/media/bXkNSePOO0JUs/giphy.gif" alt="Funny ski fail GIF">
+  <figcaption>We've all been there on our first day...</figcaption>
+</figure>
+
 ## Getting Started: What Every Vienna Beginner Needs to Know
 
 Before we dive into specific resorts, let me save you from the mistakes I made on my first few trips. Austrian ski culture is wonderfully welcoming to beginners, but there are unwritten rules that will make your experience infinitely better.
@@ -57,6 +62,11 @@ What I love about Unterberg is the natural snow. Unlike some closer resorts that
 The train connection from Wien Hauptbahnhof makes this accessible without a car, though you'll need to plan carefully – the connecting bus runs less frequently on weekends.
 
 **Best for:** Progressing from your first few runs to longer descents, natural snow experience, budget-conscious weekend trips.
+
+<figure class="fun-gif">
+  <img src="https://media.giphy.com/media/llejaeuDGbfws/giphy.gif" alt="Funny skiing GIF">
+  <figcaption>When you finally nail that first turn!</figcaption>
+</figure>
 
 ## The Sweet Spot: Day Trip Destinations
 
@@ -166,6 +176,11 @@ Here's what a realistic weekend ski trip from Vienna actually costs:
 - Fuel: €15-35 (depending on distance)
 - Parking: €3-8
 - Tolls: €0-15 (for longer trips)
+
+<figure class="fun-gif">
+  <img src="https://media.giphy.com/media/7aLx6EHBGyTZTNOt5G/giphy.gif" alt="Skiing fail GIF">
+  <figcaption>Pro tip: this is NOT the recommended stopping technique</figcaption>
+</figure>
 
 ## My Personal Progression Path
 

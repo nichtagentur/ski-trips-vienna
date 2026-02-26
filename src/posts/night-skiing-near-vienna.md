@@ -32,6 +32,11 @@ Unlike the crowded daytime slopes, evening skiing offers an intimate experience 
 
 What sets the Vienna region apart is the accessibility. Both Semmering and Stuhleck offer reliable snow conditions thanks to extensive snowmaking systems, and their proximity to the capital means you can finish work at 5 PM and still catch the last few hours of illuminated skiing.
 
+<figure class="fun-gif">
+  <img src="https://media.giphy.com/media/SC0VDXns3gvS0/giphy.gif" alt="Funny skiing GIF">
+  <figcaption>Night skiing: same thrills, less visibility for your wipeouts!</figcaption>
+</figure>
+
 ## Semmering: The Historic Night Skiing Pioneer
 
 ### Getting to Semmering for Night Skiing

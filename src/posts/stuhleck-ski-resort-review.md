@@ -44,6 +44,11 @@ For car-free skiing, take the S-Bahn S6 from Wien Hauptbahnhof to Mürzzuschlag 
 
 The train option costs about €25 return with a VOR ticket, making it budget-friendly compared to fuel and parking. Plus, you can enjoy an Austrian beer on the ride home!
 
+<figure class="fun-gif">
+  <img src="https://media.giphy.com/media/bjG53ta765KUArWXhO/giphy.gif" alt="Funny skiing GIF">
+  <figcaption>How we all feel conquering Stuhleck's slopes!</figcaption>
+</figure>
+
 ## What to Expect on the Mountain
 
 ### Terrain and Slopes

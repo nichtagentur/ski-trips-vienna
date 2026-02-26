@@ -32,6 +32,11 @@ Vienna sits perfectly positioned for affordable ski adventures. The eastern edge
 
 I've spent countless weekends exploring these resorts, from dawn patrol runs at Stuhleck to evening sessions under the lights at Semmering. What strikes me most is how each resort has its own personality, despite being relatively small. Some excel at family-friendly terrain, others offer surprisingly challenging runs, and a few provide experiences you simply can't find at major Alpine destinations.
 
+<figure class="fun-gif">
+  <img src="https://media.giphy.com/media/elyFU4qFMAULiW5SNH/giphy.gif" alt="Skiing fail GIF">
+  <figcaption>Budget skiing tip #1: gravity is free!</figcaption>
+</figure>
+
 ## The Best Budget Ski Resorts Near Vienna
 
 ### Hohe Wand Wiese: Vienna's City Ski Hill

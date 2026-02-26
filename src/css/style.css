@@ -806,6 +806,25 @@ strong { font-weight: 600; }
   margin: 2rem 0;
 }
 
+.fun-gif {
+  text-align: center;
+  margin: 2.5rem 0;
+}
+
+.fun-gif img {
+  max-width: 480px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.fun-gif figcaption {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
 .post__content code {
   font-size: 0.88em;
   background: var(--bg-warm);
