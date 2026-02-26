@@ -155,10 +155,6 @@ strong { font-weight: 600; }
   z-index: 11;
 }
 
-.snow-forecast ~ .featured {
-  margin-top: 2rem;
-}
-
 .snow-forecast__inner {
   max-width: var(--content-width);
   margin: 0 auto;
@@ -422,6 +418,10 @@ strong { font-weight: 600; }
   padding: 0 2rem;
   position: relative;
   z-index: 10;
+}
+
+.snow-forecast ~ .featured {
+  margin-top: 2rem;
 }
 
 .featured__card {
